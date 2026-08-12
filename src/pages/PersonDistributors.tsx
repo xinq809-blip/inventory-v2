@@ -17,15 +17,10 @@ export default function PersonDistributorsPage() {
   const [adding, setAdding] = useState(false);
   const [form, setForm] = useState({ name: '', region: '', phone: '', address: '' });
 
-  // Load
+  // Load from global state (which includes localStorage + Supabase)
   useEffect(() => {
-    supabase.from('distributors').select('*').then(r => {
-      if (r.data?.length) {
-        const all = r.data.map((row: any) => row.data);
-        setItems(all.filter((d: Distributor) => d.parentId === pid));
-      }
-    });
-  }, [pid]);
+    setItems(distributors.filter(d => d.parentId === pid));
+  }, [pid, distributors]);
 
   const save = async () => {
     if (!form.name.trim()) return;
@@ -36,11 +31,12 @@ export default function PersonDistributorsPage() {
       ? items.map(d => d.id === editing ? newItem : d)
       : [...items, newItem];
     setItems(updated);
-    // Upsert to Supabase
-    await supabase.from('distributors').upsert({ id: newItem.id, data: newItem }, { onConflict: 'id' });
-    // Update global state: remove old, add updated
+    // Update global state
     const global = [...distributors.filter(d => d.id !== newItem.id), newItem];
     dispatch({ type: 'SET_DISTRIBUTORS', payload: global });
+    // Persist to localStorage + Supabase
+    try { localStorage.setItem('v2_distributors', JSON.stringify(global)); } catch {}
+    try { await supabase.from('distributors').upsert({ id: newItem.id, data: newItem }, { onConflict: 'id' }); } catch {}
     cancel();
   };
 
@@ -48,8 +44,10 @@ export default function PersonDistributorsPage() {
     if (!confirm('确定删除？')) return;
     const updated = items.filter(d => d.id !== id);
     setItems(updated);
-    await supabase.from('distributors').delete().eq('id', id);
-    dispatch({ type: 'SET_DISTRIBUTORS', payload: distributors.filter(d => d.id !== id) });
+    const global = distributors.filter(d => d.id !== id);
+    dispatch({ type: 'SET_DISTRIBUTORS', payload: global });
+    try { localStorage.setItem('v2_distributors', JSON.stringify(global)); } catch {}
+    try { await supabase.from('distributors').delete().eq('id', id); } catch {}
   };
 
   const cancel = () => { setAdding(false); setEditing(null); setForm({ name: '', region: '', phone: '', address: '' }); };

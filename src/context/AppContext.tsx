@@ -95,8 +95,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [loadErr, setLoadErr] = useState(false);
 
-  // Sync distributors to mockData module so all helpers see dynamic list
-  useEffect(() => { setActiveDistributors(state.distributors); }, [state.distributors]);
+  // Sync distributors to mockData + localStorage so they persist
+  useEffect(() => {
+    setActiveDistributors(state.distributors);
+    try { localStorage.setItem('v2_distributors', JSON.stringify(state.distributors)); } catch {}
+  }, [state.distributors]);
 
   // Load data from Supabase on mount (with timeout)
   useEffect(() => {
