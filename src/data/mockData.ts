@@ -37,13 +37,9 @@ export const products: Product[] = [
   { id: 'p22', name: 'P350 befit 胶原蛋白肽 茉莉水', category: 'P350 befit', sku: 'P350-BF-ML', spec: '350ml×5入 津', unitPrice: 38.25 },
 ];
 
-// Active distributor list - can be updated from AppContext to include dynamically added ones
+// V2: 区域负责人列表 - 可从 AppContext 动态更新
 export let distributors: Distributor[] = [
-  { id: 'd0', name: '唐山辰日', region: '唐山', phone: '', address: '', lat: 39.63, lng: 118.18, role: 'main' },
-  { id: 'd1', name: '山海关梁波', region: '秦皇岛', phone: '', address: '', lat: 39.98, lng: 119.77, role: 'sub' },
-  { id: 'd2', name: '杨子', region: '秦皇岛', phone: '', address: '', lat: 39.93, lng: 119.58, role: 'sub' },
-  { id: 'd3', name: '速恩', region: '秦皇岛', phone: '', address: '', lat: 39.91, lng: 119.52, role: 'sub' },
-  { id: 'd4', name: '北戴河王总', region: '秦皇岛', phone: '', address: '', lat: 39.83, lng: 119.48, role: 'sub' },
+  { id: 'd0', name: '大区经理', region: '京津冀', phone: '', address: '', lat: 39.90, lng: 116.40, role: 'main' },
 ];
 
 export function setActiveDistributors(d: Distributor[]) {

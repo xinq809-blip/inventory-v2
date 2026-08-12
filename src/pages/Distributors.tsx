@@ -6,10 +6,7 @@ import { supabase } from '../lib/supabase';
 import type { Distributor } from '../types';
 
 const DEFAULT_DISTRIBUTORS: Distributor[] = [
-  { id: 'd1', name: '山海关梁波', region: '秦皇岛', phone: '', address: '', lat: 39.98, lng: 119.77 },
-  { id: 'd2', name: '杨子', region: '秦皇岛', phone: '', address: '', lat: 39.93, lng: 119.58 },
-  { id: 'd3', name: '速恩', region: '唐山', phone: '', address: '', lat: 39.63, lng: 118.18 },
-  { id: 'd4', name: '北戴河王总', region: '秦皇岛', phone: '', address: '', lat: 39.83, lng: 119.48 },
+  { id: 'd0', name: '大区经理', region: '京津冀', phone: '', address: '', lat: 39.90, lng: 116.40, role: 'main' },
 ];
 
 function genId() { return 'd' + Date.now().toString(36); }
@@ -60,17 +57,17 @@ export default function DistributorsPage() {
     cancel();
   };
 
-  const del = (id: string) => { if (confirm('确定删除该经销商？')) flush(items.filter(d => d.id !== id)); };
+  const del = (id: string) => { if (confirm('确定删除该负责人？')) flush(items.filter(d => d.id !== id)); };
 
   return (
     <div className="p-4 md:p-6 space-y-5 max-w-5xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-gray-800">经销商管理</h1>
-          <p className="text-xs text-gray-400 mt-0.5">{items.length} 个经销商 · 增删改查</p>
+          <h1 className="text-xl md:text-2xl font-bold text-gray-800">人员管理</h1>
+          <p className="text-xs text-gray-400 mt-0.5">{items.length} 个负责人 · 管理区域负责人</p>
         </div>
         <button onClick={startAdd} className="flex items-center gap-1.5 px-4 py-2 bg-starbucks-500 text-white rounded-xl text-sm font-medium hover:bg-starbucks-600 shadow-sm">
-          <Plus size={15} />新增经销商
+          <Plus size={15} />新增负责人
         </button>
       </div>
 
@@ -119,13 +116,13 @@ export default function DistributorsPage() {
           <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={cancel} />
           <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-800">{editing ? '编辑经销商' : '新增经销商'}</h3>
+              <h3 className="text-sm font-semibold text-gray-800">{editing ? '编辑负责人' : '新增负责人'}</h3>
               <button onClick={cancel} className="p-1 rounded-full hover:bg-gray-200"><X size={16} className="text-gray-400" /></button>
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="text-[11px] text-gray-400 mb-1 block">名称 *</label>
-                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="经销商名称" autoFocus
+                <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="负责人名称" autoFocus
                   className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-gray-50 focus:outline-none focus:bg-white focus:border-gray-400" />
               </div>
               <div className="grid grid-cols-2 gap-3">

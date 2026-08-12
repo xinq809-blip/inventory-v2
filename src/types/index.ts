@@ -16,12 +16,15 @@ export interface MonthlyTarget {
 
 export interface Distributor {
   id: string;
+  /** 负责人姓名 */
   name: string;
+  /** 所属区域 */
   region: string;
   phone: string;
   address: string;
   lat: number;
   lng: number;
+  /** main=大区经理(汇总), sub=区域负责人 */
   role?: 'main' | 'sub';
 }
 

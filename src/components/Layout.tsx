@@ -4,10 +4,10 @@ import { LayoutDashboard, PencilLine, Package, Menu, X, Store, Users, TrendingUp
 
 const navItems = [
   { to: '/overview', icon: BarChart3, label: '总看板' },
-  { to: '/', icon: LayoutDashboard, label: '看板', end: true },
+  { to: '/', icon: LayoutDashboard, label: '个人看板', end: true },
   { to: '/entry', icon: PencilLine, label: '录入' },
   { to: '/ranking', icon: TrendingUp, label: '排名' },
-  { to: '/distributors', icon: Users, label: '经销商' },
+  { to: '/distributors', icon: Users, label: '人员管理' },
   { to: '/products', icon: Package, label: '产品' },
 ];
 
@@ -31,12 +31,12 @@ export default function Layout() {
       <aside className="hidden md:flex w-48 bg-white border-r border-gray-200 flex-col flex-shrink-0">
         <div className="h-14 flex items-center gap-2 px-4 border-b border-gray-100">
           <Store className="w-6 h-6 text-starbucks-500" />
-          <span className="font-bold text-sm text-gray-800">进销存 2.0</span>
+          <span className="font-bold text-sm text-gray-800">京津冀大区 · 进销存</span>
         </div>
         <nav className="flex-1 py-3 px-3 overflow-y-auto"><NavLinks /></nav>
       </aside>
       <div className="md:hidden fixed top-0 left-0 right-0 z-30 h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4">
-        <span className="font-bold text-sm">进销存 2.0</span>
+        <span className="font-bold text-sm">京津冀大区</span>
         <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 rounded-lg hover:bg-gray-100">{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
       </div>
       {menuOpen && (
