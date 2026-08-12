@@ -149,6 +149,10 @@ export default function DistributorsPage() {
                 <label className="text-[11px] text-gray-400 mb-1 block">地址</label>
                 <input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} placeholder="详细地址" className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-gray-50 focus:outline-none focus:bg-white focus:border-gray-400" />
               </div>
+              <div>
+                <label className="text-[11px] text-gray-400 mb-1 block">登录PIN码 <span className="text-gray-300">(默认1234)</span></label>
+                <input value={(form as any).pin || ''} onChange={e => setForm({ ...form, pin: e.target.value } as any)} placeholder="4-6位数字" maxLength={6} className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-gray-50 focus:outline-none focus:bg-white focus:border-gray-400" />
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-[11px] text-gray-400 mb-1 block">纬度 (lat)</label>
