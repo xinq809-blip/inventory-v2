@@ -17,16 +17,21 @@ export default function Overview() {
   const prevDate = weeks.length > 1 ? weeks[weeks.length - 2] : null;
 
   const mainId = pid || '';
+  const allIds = useMemo(() => {
+    if (!pid) return [];
+    const children = distributors.filter(d => d.parentId === pid).map(d => d.id);
+    return [pid, ...children];
+  }, [pid, distributors]);
 
   const mainRestocks = useMemo(() =>
-    (restocks || []).filter(r => r.distributorId === mainId).sort((a, b) => a.date.localeCompare(b.date))
-  , [restocks, mainId]);
+    (restocks || []).filter(r => allIds.includes(r.distributorId)).sort((a, b) => a.date.localeCompare(b.date))
+  , [restocks, allIds]);
 
-  const curStock = snapshots.filter(s => s.weekStart === activeDate && s.distributorId === mainId).reduce((a, s) => a + s.quantity, 0);
-  const prevStock = prevDate ? snapshots.filter(s => s.weekStart === prevDate && s.distributorId === mainId).reduce((a, s) => a + s.quantity, 0) : 0;
+  const curStock = snapshots.filter(s => s.weekStart === activeDate && allIds.includes(s.distributorId)).reduce((a, s) => a + s.quantity, 0);
+  const prevStock = prevDate ? snapshots.filter(s => s.weekStart === prevDate && allIds.includes(s.distributorId)).reduce((a, s) => a + s.quantity, 0) : 0;
   const totalRestock = mainRestocks.reduce((s, r) => s + r.quantity, 0);
   const totalSales = Math.max(0, prevStock + totalRestock - curStock);
-  const stockValue = snapshots.filter(s => s.weekStart === activeDate && s.distributorId === mainId).reduce((a, s) => {
+  const stockValue = snapshots.filter(s => s.weekStart === activeDate && allIds.includes(s.distributorId)).reduce((a, s) => {
     const p = products.find(x => x.id === s.productId);
     return a + s.quantity * (p?.unitPrice || 0);
   }, 0);

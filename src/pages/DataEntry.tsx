@@ -122,9 +122,14 @@ export default function DataEntry() {
   // Product filters
   const restockDistName = distributors.find(d => d.id === restockDist)?.name || '';
 
+  const personDists = useMemo(() => {
+    if (!pid) return distributors;
+    return distributors.filter(d => d.id === pid || d.parentId === pid);
+  }, [pid, distributors]);
+
   const DistTabs = ({ active, onChange }: { active: string; onChange: (id: string) => void }) => (
     <div className="flex gap-1.5 overflow-x-auto">
-      {distributors.map(d => (
+      {personDists.map(d => (
         <button key={d.id} onClick={() => onChange(d.id)}
           className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
             active === d.id ? 'bg-white border border-gray-200 shadow-sm text-gray-800' : 'bg-white/60 border border-transparent text-gray-500 hover:bg-white'

@@ -16,7 +16,11 @@ export default function Dashboard() {
   const weeks = useMemo(() => getAvailableWeeks(snapshots), [snapshots]);
   const activeDate = weeks.length > 0 ? weeks[weeks.length - 1] : getCurrentWeekStart();
 
-  const allIds = useMemo(() => pid ? [pid] : [], [pid]);
+  const allIds = useMemo(() => {
+    if (!pid) return [];
+    const children = distributors.filter(d => d.parentId === pid).map(d => d.id);
+    return [pid, ...children];
+  }, [pid, distributors]);
 
   // ====== 构建时间线：把所有进货日期和盘点日期合在一起排序 ======
   const timeline = useMemo(() => {
