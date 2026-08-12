@@ -22,7 +22,7 @@ export default function DistributorRanking() {
   const prevDate = weeks.length > 1 ? weeks[weeks.length - 2] : null;
 
   const subs = useMemo(() =>
-    distributors.filter(d => d.role !== 'main' && !d.name.includes('辰日'))
+    distributors.filter(d => d.role !== 'main')
   , [distributors]);
 
   const [expanded, setExpanded] = useState<string | null>(null);

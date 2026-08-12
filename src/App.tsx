@@ -1,8 +1,9 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
+import Summary from './pages/Summary';
 import Overview from './pages/Overview';
+import Dashboard from './pages/Dashboard';
 import DataEntry from './pages/DataEntry';
 import Ranking from './pages/Ranking';
 import Distributors from './pages/Distributors';
@@ -14,12 +15,14 @@ export default function App() {
       <HashRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/overview" element={<Overview />} />
-            <Route path="/entry" element={<DataEntry />} />
-            <Route path="/ranking" element={<Ranking />} />
+            <Route path="/summary" element={<Summary />} />
+            <Route path="/person/:pid/overview" element={<Overview />} />
+            <Route path="/person/:pid/dashboard" element={<Dashboard />} />
+            <Route path="/person/:pid/entry" element={<DataEntry />} />
+            <Route path="/person/:pid/ranking" element={<Ranking />} />
             <Route path="/distributors" element={<Distributors />} />
             <Route path="/products" element={<Products />} />
+            <Route path="*" element={<Summary />} />
           </Route>
         </Routes>
       </HashRouter>

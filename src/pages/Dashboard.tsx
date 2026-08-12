@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { getAvailableWeeks, getCurrentWeekStart, getProductById, getProductGroupLabel } from '../data/mockData';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
@@ -9,16 +10,13 @@ const FOCUS_IDS = ['p11', 'p20'];
 
 export default function Dashboard() {
   const { state } = useApp();
+  const { pid } = useParams<{ pid: string }>();
   const { products, distributors, snapshots, restocks } = state;
 
   const weeks = useMemo(() => getAvailableWeeks(snapshots), [snapshots]);
   const activeDate = weeks.length > 0 ? weeks[weeks.length - 1] : getCurrentWeekStart();
 
-  // 看板只显示分销商数据，唐山辰日只在总看板显示
-  const subs = useMemo(() =>
-    distributors.filter(d => d.role !== 'main' && !d.name.includes('辰日'))
-  , [distributors]);
-  const allIds = useMemo(() => subs.map(d => d.id), [subs]);
+  const allIds = useMemo(() => pid ? [pid] : [], [pid]);
 
   // ====== 构建时间线：把所有进货日期和盘点日期合在一起排序 ======
   const timeline = useMemo(() => {
@@ -119,7 +117,7 @@ export default function Dashboard() {
           { label: '现有库存', v: curStock, unit: '件', icon: Package, color: 'text-violet-600', bg: 'bg-violet-50' },
           { label: '累计出货', v: totalSales, unit: '件', icon: TrendingUp, color: 'text-emerald-600', bg: 'bg-emerald-50' },
           { label: '库存价值', v: '¥' + (curValue / 10000).toFixed(1), unit: '万', icon: DollarSign, color: 'text-amber-600', bg: 'bg-amber-50' },
-          { label: '分销商', v: subs.length, unit: '家', icon: MapPin, color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: '个人', v: '1', unit: '人', icon: MapPin, color: 'text-blue-600', bg: 'bg-blue-50' },
         ].map(c => (
           <div key={c.label} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
             <div className="flex items-center justify-between mb-2"><span className="text-xs text-gray-500">{c.label}</span><div className={`p-1.5 rounded-lg ${c.bg}`}><c.icon size={15} className={c.color} /></div></div>

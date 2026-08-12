@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useApp } from '../context/AppContext';
 import { getAvailableWeeks, getProductGroupLabel } from '../data/mockData';
@@ -13,6 +14,7 @@ const MAIN_GROUPS = [
 
 
 export default function DataEntry() {
+  const { pid } = useParams<{ pid: string }>();
   const { state, saveWeek, addRestock, editRestock, deleteRestock } = useApp();
   const { products, distributors, snapshots, restocks } = state;
   const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
@@ -25,7 +27,7 @@ export default function DataEntry() {
     try { return localStorage.getItem('v2_stock_date') || today; } catch { return today; }
   });
   useEffect(() => { localStorage.setItem('v2_stock_date', stockDate); }, [stockDate]);
-  const [stockDist, setStockDist] = useState(distributors[0]?.id || '');
+  const [stockDist, setStockDist] = useState(pid || distributors[0]?.id || '');
   const [stockData, setStockData] = useState<Record<string, number>>({});
   const [saved, setSaved] = useState(false);
 
@@ -34,7 +36,7 @@ export default function DataEntry() {
     try { return localStorage.getItem('v2_restock_date') || today; } catch { return today; }
   });
   useEffect(() => { localStorage.setItem('v2_restock_date', restockDate); }, [restockDate]);
-  const [restockDist, setRestockDist] = useState(distributors[0]?.id || '');
+  const [restockDist, setRestockDist] = useState(pid || distributors[0]?.id || '');
   const [restockInputs, setRestockInputs] = useState<Record<string, { val: string; added: number }>>({});
   // Load stock data
   const loadStock = useCallback((date: string) => {
