@@ -27,7 +27,7 @@ export default function PersonDistributorsPage() {
     });
   }, [pid]);
 
-  const save = () => {
+  const save = async () => {
     if (!form.name.trim()) return;
     const newItem: Distributor = {
       ...form, id: editing || genId(), lat: 0, lng: 0, role: 'dist', parentId: pid
@@ -36,13 +36,11 @@ export default function PersonDistributorsPage() {
       ? items.map(d => d.id === editing ? newItem : d)
       : [...items, newItem];
     setItems(updated);
-    // Sync
-    supabase.from('distributors').delete().neq('id', '__none__').then(() => {
-      const all = [...distributors.filter(d => d.parentId !== pid), ...updated];
-      supabase.from('distributors').insert(all.map(d => ({ id: d.id, data: d }))).then(() => {
-        dispatch({ type: 'SET_DISTRIBUTORS', payload: all });
-      });
-    });
+    // Upsert to Supabase
+    await supabase.from('distributors').upsert({ id: newItem.id, data: newItem }, { onConflict: 'id' });
+    // Update global state: remove old, add updated
+    const global = [...distributors.filter(d => d.id !== newItem.id), newItem];
+    dispatch({ type: 'SET_DISTRIBUTORS', payload: global });
     cancel();
   };
 
