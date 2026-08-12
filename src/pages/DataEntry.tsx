@@ -22,18 +22,18 @@ export default function DataEntry() {
 
   // Stock state
   const [stockDate, setStockDate] = useState(() => {
-    try { return localStorage.getItem('sb_stock_date') || today; } catch { return today; }
+    try { return localStorage.getItem('v2_stock_date') || today; } catch { return today; }
   });
-  useEffect(() => { localStorage.setItem('sb_stock_date', stockDate); }, [stockDate]);
+  useEffect(() => { localStorage.setItem('v2_stock_date', stockDate); }, [stockDate]);
   const [stockDist, setStockDist] = useState(distributors[0]?.id || '');
   const [stockData, setStockData] = useState<Record<string, number>>({});
   const [saved, setSaved] = useState(false);
 
   // Restock state
   const [restockDate, setRestockDate] = useState(() => {
-    try { return localStorage.getItem('sb_restock_date') || today; } catch { return today; }
+    try { return localStorage.getItem('v2_restock_date') || today; } catch { return today; }
   });
-  useEffect(() => { localStorage.setItem('sb_restock_date', restockDate); }, [restockDate]);
+  useEffect(() => { localStorage.setItem('v2_restock_date', restockDate); }, [restockDate]);
   const [restockDist, setRestockDist] = useState(distributors[0]?.id || '');
   const [restockInputs, setRestockInputs] = useState<Record<string, { val: string; added: number }>>({});
   // Load stock data

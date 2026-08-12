@@ -40,6 +40,16 @@ export const products: Product[] = [
 // V2: 区域负责人列表 - 可从 AppContext 动态更新
 export let distributors: Distributor[] = [
   { id: 'd0', name: '大区经理', region: '京津冀', phone: '', address: '', lat: 39.90, lng: 116.40, role: 'main' },
+  { id: 'd1', name: '林竹甡', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd2', name: '于浩', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd3', name: '赵宏阳', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd4', name: '杜霞', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd5', name: '刘彤', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd6', name: '王朔', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd7', name: '李念', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd8', name: '主猛', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd9', name: '杨小光', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
+  { id: 'd10', name: '乔欣', region: '京津冀', phone: '', address: '', lat: 0, lng: 0, role: 'sub' },
 ];
 
 export function setActiveDistributors(d: Distributor[]) {

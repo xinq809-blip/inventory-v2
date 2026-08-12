@@ -50,7 +50,7 @@ function reducer(state: AppState, action: Action): AppState {
 
 function loadLocalDistributors(): Distributor[] {
   try {
-    const r = localStorage.getItem('sb_distributors_v2');
+    const r = localStorage.getItem('v2_distributors');
     if (r) return migrateRoles(JSON.parse(r));
   } catch {}
   return initialDistributors;
@@ -67,7 +67,7 @@ function migrateRoles(dists: Distributor[]): Distributor[] {
     role: (d.name.includes('大区') || d.name.includes('经理') ? 'main' : 'sub') as 'main' | 'sub',
   }));
   // Write back to localStorage so roles persist
-  try { localStorage.setItem('sb_distributors_v2', JSON.stringify(migrated)); } catch {}
+  try { localStorage.setItem('v2_distributors', JSON.stringify(migrated)); } catch {}
   return migrated;
 }
 
