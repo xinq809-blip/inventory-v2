@@ -10,7 +10,7 @@ export default function Summary() {
 
   const weeks = useMemo(() => getAvailableWeeks(snapshots), [snapshots]);
   const activeDate = weeks.length > 0 ? weeks[weeks.length - 1] : getCurrentWeekStart();
-  const persons = distributors.filter(d => d.role !== 'main');
+  const persons = distributors.filter(d => d.role === 'sub');
 
   // Per person totals
   const personData = useMemo(() => persons.map(d => {

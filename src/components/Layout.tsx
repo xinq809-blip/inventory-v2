@@ -9,7 +9,7 @@ export default function Layout() {
   const { state: { distributors } } = useApp();
   const pid = useParams().pid;
 
-  const persons = distributors.filter(d => d.role !== 'main');
+  const persons = distributors.filter(d => d.role === 'sub');
   const linkCls = (isActive: boolean) =>
     `flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${isActive ? 'bg-starbucks-50 text-starbucks-600 font-medium' : 'text-gray-500 hover:bg-gray-100'}`;
 
