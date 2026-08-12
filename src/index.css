@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-starbucks-50: #f0f7f4;
+  --color-starbucks-100: #d4ebe2;
+  --color-starbucks-200: #a9d7c5;
+  --color-starbucks-400: #52b38b;
+  --color-starbucks-500: #00704A;
+  --color-starbucks-600: #005a3b;
+}
+
+body { margin: 0; }
+.scrollbar-thin::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
