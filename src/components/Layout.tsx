@@ -38,6 +38,7 @@ export default function Layout() {
                 <NavLink to={`/person/${p.id}/dashboard`} onClick={onClick} className={({ isActive }) => linkCls(isActive)}><LayoutDashboard size={15} />看板</NavLink>
                 <NavLink to={`/person/${p.id}/entry`} onClick={onClick} className={({ isActive }) => linkCls(isActive)}><PencilLine size={15} />录入</NavLink>
                 <NavLink to={`/person/${p.id}/ranking`} onClick={onClick} className={({ isActive }) => linkCls(isActive)}><TrendingUp size={15} />排名</NavLink>
+                <NavLink to={`/person/${p.id}/distributors`} onClick={onClick} className={({ isActive }) => linkCls(isActive)}><Users size={15} />经销商</NavLink>
               </div>
             )}
           </div>

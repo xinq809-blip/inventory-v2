@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import DataEntry from './pages/DataEntry';
 import Ranking from './pages/Ranking';
 import Distributors from './pages/Distributors';
+import PersonDistributors from './pages/PersonDistributors';
 import Products from './pages/Products';
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/person/:pid/dashboard" element={<Dashboard />} />
             <Route path="/person/:pid/entry" element={<DataEntry />} />
             <Route path="/person/:pid/ranking" element={<Ranking />} />
+            <Route path="/person/:pid/distributors" element={<PersonDistributors />} />
             <Route path="/distributors" element={<Distributors />} />
             <Route path="/products" element={<Products />} />
             <Route path="*" element={<Summary />} />
